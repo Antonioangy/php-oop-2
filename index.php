@@ -1,6 +1,6 @@
 <!-- 
     * 
-    *      Definire classe Persona:
+    *      Definire classe Person:
     *          - ATTRIBUTI (private):
     *              - nome
     *              - cognome
@@ -65,9 +65,8 @@ class Person {
 
     public function printFullPerson(){
         
-        return $this -> getnome() . " " . $this -> getcognome() 
-        . ($this -> getdataDiNascita()  ": " . $this -> getdataDiNascita() . "<br>": "");
-
+        return $this -> getnome() . " " . $this -> getcognome()
+        . " : " . $this -> getdataDiNascita()  . "<br>";
 
     }
 
@@ -76,16 +75,59 @@ class Person {
 
     }
 
-    
 }
-
 
 $person1 = new Person("Antonio", "Dumitru");
 $person1 -> setdataDiNascita("26/01/2002");
 
 
-
 echo $person1;
 
+// ----------------------------------------------------------
 
+class Employee extends Person{
+    private $stipendio;
+    private $dataStipendio;
+
+    // set/get
+    public function getstipendio(){
+        return $this -> stipendio;
+    }
+
+    public function setstipendio($stipendio){
+        $this -> stipendio = $stipendio;
+    }
+
+    public function getdataStipendio(){
+        return $this -> dataStipendio;
+    }
+
+    public function setdataStipendio($dataStipendio){
+        $this -> dataStipendio = $dataStipendio;
+    }
+    
+    
+    // construct
+    
+    public function __construct($nome, $cognome, $stipendio){
+        parent::__construct($nome, $cognome);
+        $this -> setstipendio($stipendio);
+    }
+
+    public function printFullEmployee(){
+
+        if($this -> getdataStipendio())
+        return parent::printFullPerson() . " "
+        . $this -> getstipendio() . " "
+        . "il " . $this -> getdataStipendio() . "" . "<br>";
+
+        
+    }
+}
+
+$person1Emp = new Employee($person1 -> getnome(), $person1 -> getcognome(), "1200 euro");
+
+$person1Emp -> setdataStipendio("15/01/2022");
+
+echo $person1Emp -> printFullEmployee();
 ?>
